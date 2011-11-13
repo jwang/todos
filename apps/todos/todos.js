@@ -20,6 +20,7 @@ Todos.todoListController = SC.ArrayController.create({
   createTodo: function(title) {
     var todo = Todos.Todo.create({ title: title });
     this.pushObject(todo);
+  }
 });
 
 SC.ready(function() {
