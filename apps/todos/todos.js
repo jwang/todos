@@ -6,6 +6,11 @@
 
 Todos = SC.Application.create();
 
+Todos.Todo = SC.Object.extend({
+  title: null,
+  isDone: false
+});
+
 SC.ready(function() {
   Todos.mainPane = SC.TemplatePane.append({
     layerId: 'todos',
