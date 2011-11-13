@@ -23,6 +23,16 @@ Todos.todoListController = SC.ArrayController.create({
   }
 });
 
+Todos.CreateTodoView = SC.TextField.extend({
+  insertNewline: function() {
+    var value = this.get('value');
+    if (value) {
+      Todos.todoListController.createTodo(value);
+      this.set('value', '');
+    }
+  }
+});
+
 SC.ready(function() {
   Todos.mainPane = SC.TemplatePane.append({
     layerId: 'todos',
