@@ -6,7 +6,7 @@
 
 Todos = SC.Application.create();
 
-Todos.Todo = SC.Object.extend({
+Todos.Todo = SC.Record.extend({
   title: null,
   isDone: false
 });
