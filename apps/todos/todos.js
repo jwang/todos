@@ -4,12 +4,32 @@
 // ==========================================================================
 /*globals Todos */
 
-Todos = SC.Application.create();
+Todos = SC.Application.create({
+  store: SC.Store.create().from(SC.Record.fixtures)
+});
+//Todos = SC.Application.create();
 
 Todos.Todo = SC.Record.extend({
   title: null,
   isDone: false
 });
+
+Todos.Todo.FIXTURES = [
+
+    { "guid": "todo-1",
+      "title": "Build my first SproutCore app",
+      "isDone": false },
+
+    { "guid": "todo-2",
+      "title": "Build a really awesome SproutCore app",
+      "isDone": false },
+
+    { "guid": "todo-3",
+      "title": "Next, the world!",
+      "isDone": false }
+];
+
+
 
 Todos.todoListController = SC.ArrayController.create({
   // Initialize the array controller with an empty array.
