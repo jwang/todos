@@ -10,12 +10,13 @@ Todos = SC.Application.create({
 //Todos = SC.Application.create();
 
 Todos.Todo = SC.Record.extend({
-  title: null,
-  isDone: false
+  //title: null,
+  //isDone: false
+  title: SC.Record.attr(String),
+  isDone: SC.Record.attr(Boolean, { defaultValue: NO })
 });
 
 Todos.Todo.FIXTURES = [
-
     { "guid": "todo-1",
       "title": "Build my first SproutCore app",
       "isDone": false },
@@ -29,8 +30,6 @@ Todos.Todo.FIXTURES = [
       "isDone": false }
 ];
 
-
-
 Todos.todoListController = SC.ArrayController.create({
   // Initialize the array controller with an empty array.
   content: [],
@@ -38,8 +37,9 @@ Todos.todoListController = SC.ArrayController.create({
   // Creates a new todo with the passed title, then adds it
   // to the array.
   createTodo: function(title) {
-    var todo = Todos.Todo.create({ title: title });
-    this.pushObject(todo);
+    Todos.store.createRecord(Todos.Todo, { title: title });
+    //var todo = Todos.Todo.create({ title: title });
+    //this.pushObject(todo);
   },
 
   remaining: function() {
@@ -47,7 +47,10 @@ Todos.todoListController = SC.ArrayController.create({
   }.property('@each.isDone'),
 
   clearCompletedTodos: function() {
-    this.filterProperty('isDone', true).forEach(this.removeObject, this);
+    //this.filterProperty('isDone', true).forEach(this.removeObject, this);
+    this.filterProperty('isDone', true).forEach( function(item) {
+      item.destroy();
+    });
   },
 
   allAreDone: function(key, value) {
@@ -90,4 +93,7 @@ SC.ready(function() {
     layerId: 'todos',
     templateName: 'todos'
   });
+
+  var todos = Todos.store.find(Todos.Todo);
+  Todos.todoListController.set('content', todos);
 });
