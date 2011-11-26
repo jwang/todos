@@ -1,13 +1,20 @@
 describe('Todos.todoListController', function() {
   describe('#createTodo', function() {
-    var createTodoSpy, title,todo;
+    var createTodoSpy, title, todo, todoHash;
 
     beforeEach(function() {
       title = 'title';
-      todo = {title: title};
-      createTodoSpy = spyOn(Todos.Todo, 'create').andReturn(todo);
-
+      todoHash = {title: title};
+      createTodoSpy = spyOn(Todos.Todo, 'create').andCallThrough();
       Todos.todoListController.createTodo(title);
+
+      var length = Todos.todoListController.get('content').length;
+      todo = Todos.todoListController.get('content').get(length-1);
+    });
+
+    afterEach(function () {
+      // clean up after each spec run
+      Todos.todoListController.removeObject(todo);
     });
 
     it('creates a todo with the passed in title', function() {
