@@ -1,4 +1,3 @@
-/*
 describe('Todos.CreateTodoView', function() {
   afterEach(function() {
     //Todos.mainPane.remove();
@@ -24,4 +23,3 @@ describe('Todos.CreateTodoView', function() {
     });
   });
 });
-*/

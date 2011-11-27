@@ -1,3 +1,4 @@
+/*
 describe('Scenario: Adding a todo', function() {
   Given('I have loaded the todo application', function() {
     afterEach(function() {
@@ -20,3 +21,4 @@ describe('Scenario: Adding a todo', function() {
     });
   });
 });
+*/
