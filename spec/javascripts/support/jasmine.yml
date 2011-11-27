@@ -12,6 +12,12 @@
 #
 src_files:
     - public/javascripts/**/*.js
+    - vendor/sproutcore/**/*.js
+    - vendor/simulo/**/*.js
+    - apps/todos/todos.js
+    - apps/todos/models/*.js
+    - apps/todos/controllers/*.js
+    - apps/todos/views/*.js
 
 # stylesheets
 #
@@ -49,7 +55,7 @@ helpers:
 #   - **/*[sS]pec.js
 #
 spec_files:
-
+    - "../../apps/todos/tests/**/*[sS]pec.js"
 # src_dir
 #
 # Source directory path. Your src_files must be returned relative to this path. Will use root if left blank.
