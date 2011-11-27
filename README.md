@@ -25,7 +25,7 @@ Add as much test coverage as you can to the Todo app from step 1.
 
 #### Continuous Integration
 * Setting up Travis-CI to run Jasmine tests isn't that bad. [Example
-  GitHub repo running Jasmine specs.]()
+  GitHub repo running Jasmine specs.](https://github.com/jwang/js-travis-test)
 * Setting up CI for Sproutcore 2.0 is a lot easier than 1.6. This is due
   to the 2.0 ability to build the JS files and integrate better into
 existing projects.
