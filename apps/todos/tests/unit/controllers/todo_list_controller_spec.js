@@ -17,9 +17,6 @@ describe('Todos.todoListController', function() {
       todoHash = {title: title};
       createTodoSpy = spyOn(Todos.Todo, 'create').andCallThrough();
       Todos.todoListController.createTodo(title);
-
-      // This should always be 1
-      //var length = Todos.todoListController.get('content').length;
       todo = Todos.todoListController.get('content').get(0);
     });
 
@@ -104,9 +101,9 @@ describe('Todos.todoListController', function() {
 
     afterEach(function () {
       // clean up after each spec run
-      //Todos.todoListController.removeObject(firstTodo);
-      //Todos.todoListController.removeObject(secondTodo);
-      //Todos.todoListController.clearCompletedTodos();
+      Todos.todoListController.removeObject(firstTodo);
+      Todos.todoListController.removeObject(secondTodo);
+      Todos.todoListController.clearCompletedTodos();
     });
 
     it("can mark all as done", function() {
