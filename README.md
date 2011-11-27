@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------
 Project:   Todos  
 Copyright: @2011 My Company, Inc.  
-
+[![Build Status](https://secure.travis-ci.org/jwang/todos.png)](http://travis-ci.org/jwang/todos)
 --------------------------------------------------------------------------
 TODO: Describe Your Project
 
