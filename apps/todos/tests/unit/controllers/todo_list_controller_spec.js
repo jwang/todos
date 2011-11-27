@@ -1,4 +1,14 @@
 describe('Todos.todoListController', function() {
+  beforeEach(function() {
+      // clear any previous todos created that weren't cleared out
+      var length = Todos.todoListController.get('content').length;
+      var i = 0;
+      for (i = 0 ; i < length; i++) {
+        var removeTodo = Todos.todoListController.get('content').get(i);
+        Todos.todoListController.removeObject(removeTodo);
+      }
+  });
+
   describe('#createTodo', function() {
     var createTodoSpy, title, todo, todoHash;
 
@@ -9,8 +19,8 @@ describe('Todos.todoListController', function() {
       Todos.todoListController.createTodo(title);
 
       // This should always be 1
-      var length = Todos.todoListController.get('content').length;
-      todo = Todos.todoListController.get('content').get(length-1);
+      //var length = Todos.todoListController.get('content').length;
+      todo = Todos.todoListController.get('content').get(0);
     });
 
     afterEach(function () {
@@ -30,18 +40,8 @@ describe('Todos.todoListController', function() {
   describe("remaining", function() {
     var createTodoSpy, title, firstTodo, secondTodo, todoHash;
     beforeEach(function() {
-      
-      // clear any previous todos created
-      var length = Todos.todoListController.get('content').length;
-      var i = 0;
-      for (i = 0 ; i < length; i++) {
-        var removeTodo = Todos.todoListController.get('content').get(i);
-        Todos.todoListController.removeObject(removeTodo);
-      }
-      
       title = 'title';
       todoHash = {title: title};
-      createTodoSpy = spyOn(Todos.Todo, 'create').andCallThrough();
       Todos.todoListController.createTodo(title);
       Todos.todoListController.createTodo(title);
       firstTodo = Todos.todoListController.get('content').get(0);
@@ -58,6 +58,80 @@ describe('Todos.todoListController', function() {
       expect(Todos.todoListController.remaining()).toEqual(2);
     });
 
+  });
+
+  describe("clearCompletedTodos", function() {
+    var createTodoSpy, title, firstTodo, secondTodo, todoHash;
+    beforeEach(function() {
+      title = 'title clearCompletedTodos 1';
+      todoHash = {title: title};
+      createTodoSpy = spyOn(Todos.Todo, 'create').andCallThrough();
+      Todos.todoListController.createTodo(title);
+      title = 'title clearCompletedTodos 2';
+      Todos.todoListController.createTodo(title);
+      firstTodo = Todos.todoListController.get('content').get(0);
+      secondTodo = Todos.todoListController.get('content').get(1);
+    });
+
+    afterEach(function () {
+      // clean up after each spec run
+      Todos.todoListController.removeObject(firstTodo);
+      Todos.todoListController.removeObject(secondTodo);
+    });
+
+    it("removes completed todos", function() {
+      firstTodo.set('isDone', true);
+      Todos.todoListController.clearCompletedTodos();
+
+      expect(Todos.todoListController.get('content')).toContain(secondTodo);
+      expect(Todos.todoListController.get('content').length).toEqual(1);
+      expect(Todos.todoListController.get('content')).not.toContain(firstTodo);
+    });
+  });
+
+  describe("allAreDone", function() {
+    var createTodoSpy, title, firstTodo, secondTodo, todoHash;
+    beforeEach(function() {
+      title = 'title allAreDone 1';
+      todoHash = {title: title};
+      createTodoSpy = spyOn(Todos.Todo, 'create').andCallThrough();
+      Todos.todoListController.createTodo(title);
+      title = 'title allAreDone 2';
+      Todos.todoListController.createTodo(title);
+      firstTodo = Todos.todoListController.get('content').get(0);
+      secondTodo = Todos.todoListController.get('content').get(1);
+    });
+
+    afterEach(function () {
+      // clean up after each spec run
+      //Todos.todoListController.removeObject(firstTodo);
+      //Todos.todoListController.removeObject(secondTodo);
+      //Todos.todoListController.clearCompletedTodos();
+    });
+
+    it("can mark all as done", function() {
+      Todos.todoListController.allAreDone(Todos.todoListController.allAreDone(), true);
+      expect(firstTodo.isDone).toEqual(true);
+      expect(secondTodo.isDone).toEqual(true);
+    });
+    
+    it("marks all as done with some already done", function() {
+      firstTodo.set('isDone', true);
+      expect(firstTodo.isDone).toEqual(true);
+      Todos.todoListController.allAreDone(Todos.todoListController.allAreDone(), true);
+      expect(firstTodo.isDone).toEqual(true);
+      expect(secondTodo.isDone).toEqual(true);
+    });
+    
+    it("marks all as done already all done", function() {
+      firstTodo.set('isDone', true);
+      secondTodo.set('isDone', true);
+      expect(firstTodo.isDone).toEqual(true);
+      expect(secondTodo.isDone).toEqual(true);
+      Todos.todoListController.allAreDone(Todos.todoListController.allAreDone(), true);
+      expect(firstTodo.isDone).toEqual(true);
+      expect(secondTodo.isDone).toEqual(true);
+    });
   });
 });
 
