@@ -12,9 +12,9 @@
 #
 src_files:
     - public/javascripts/**/*.js
+    #- vendor/jasmine-sproutcore/**/*.js
     - vendor/sproutcore/**/*.js
     - vendor/simulo/**/*.js
-    - vendor/jasmine-sproutcore/**/*.js
     - apps/todos/todos.js
     - apps/todos/models/*.js
     - apps/todos/controllers/*.js
