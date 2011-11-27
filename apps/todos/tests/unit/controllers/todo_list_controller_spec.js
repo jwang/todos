@@ -8,6 +8,7 @@ describe('Todos.todoListController', function() {
       createTodoSpy = spyOn(Todos.Todo, 'create').andCallThrough();
       Todos.todoListController.createTodo(title);
 
+      // This should always be 1
       var length = Todos.todoListController.get('content').length;
       todo = Todos.todoListController.get('content').get(length-1);
     });
