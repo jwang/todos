@@ -3,7 +3,7 @@ describe('Todos.todoListController', function() {
       // clear any previous todos created that weren't cleared out
       var length = Todos.todoListController.get('content').length;
       var i = 0;
-      for (i = 0 ; i < length; i++) {
+      for (i = length-1 ; i > -1; i--) {
         var removeTodo = Todos.todoListController.get('content').get(i);
         Todos.todoListController.removeObject(removeTodo);
       }
@@ -111,7 +111,7 @@ describe('Todos.todoListController', function() {
       expect(firstTodo.isDone).toEqual(true);
       expect(secondTodo.isDone).toEqual(true);
     });
-    
+
     it("marks all as done with some already done", function() {
       firstTodo.set('isDone', true);
       expect(firstTodo.isDone).toEqual(true);
@@ -119,7 +119,7 @@ describe('Todos.todoListController', function() {
       expect(firstTodo.isDone).toEqual(true);
       expect(secondTodo.isDone).toEqual(true);
     });
-    
+
     it("marks all as done already all done", function() {
       firstTodo.set('isDone', true);
       secondTodo.set('isDone', true);
@@ -130,5 +130,45 @@ describe('Todos.todoListController', function() {
       expect(secondTodo.isDone).toEqual(true);
     });
   });
+
+  describe("sortTodos", function() {
+    var createTodoSpy, title, firstTodo, secondTodo, tag;
+    beforeEach(function() {
+      var length = Todos.todoListController.get('unsorted').length;
+      var i = 0;
+      for (i = length-1 ; i > -1; i--) {
+        var removeTodo = Todos.todoListController.get('unsorted').get(i);
+        Todos.todoListController.unsorted.removeObject(removeTodo);
+      }
+
+      title = 'title sortTodos 1';
+      tag = "b";
+      createTodoSpy = spyOn(Todos.Todo, 'create').andCallThrough();
+      Todos.todoListController.addTag(title, tag);
+      title = 'title sortTodos 2';
+      tag = "a";
+      Todos.todoListController.addTag(title, tag);
+      firstTodo = Todos.todoListController.get('content').get(0);
+      secondTodo = Todos.todoListController.get('content').get(1);
+    });
+
+    afterEach(function () {
+      // clean up after each spec run
+      Todos.todoListController.removeObject(firstTodo);
+      Todos.todoListController.removeObject(secondTodo);
+    });
+
+    it("sorts the list by tag", function() {
+      Todos.todoListController.sortTodos();
+      var content = Todos.todoListController.get('content');
+      console.log("first: " + firstTodo);
+      console.log("second: " + secondTodo);
+      console.log("content " + content);
+      expect(content[0]).toEqual(secondTodo);
+      expect(content[1]).toEqual(firstTodo);
+
+    });
+  });
+
 });
 
