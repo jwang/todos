@@ -22,6 +22,7 @@ Add as much test coverage as you can to the Todo app from step 1.
 * [Sproutcore Training: Part 6 - Automated Testing](http://vimeo.com/26026503)
 
 ### Lessons Learned
+The below is a short synopsis. For more detailed see the [Notes](https://github.com/jwang/todos/blob/master/Notes.md)
 
 #### Continuous Integration
 * Setting up Travis-CI to run Jasmine tests isn't that bad. [Example
